@@ -19,7 +19,7 @@ CREATE TABLE MENU
 	Ruta VARCHAR(MAX),
 	Orden INT,
 	MenuPadre INT,
-	Icono VARCHAR,
+	Icono VARCHAR(250),
 	CONSTRAINT pk_menu
 		PRIMARY KEY (ID),
 	CONSTRAINT fk_menu_menuhijo
@@ -86,6 +86,7 @@ CREATE TABLE CATEGORIA
 	Nombre VARCHAR(250),
 	Descripcion TEXT,
 	IdTipoProducto INT,
+	Estado CHAR(1),
 	CONSTRAINT pk_categoria
 		PRIMARY KEY (ID),
 	CONSTRAINT fk_categoriaxtipo_producto
@@ -93,29 +94,28 @@ CREATE TABLE CATEGORIA
 		REFERENCES TIPO_PRODUCTO(ID)
 )
 
-CREATE TABLE BENEFICIO
-(
-	ID INT IDENTITY(1,1),
-	Nombre VARCHAR(150),
-	Icono TEXT,
-	Descripcion TEXT,
-	CONSTRAINT pk_beneficio
-		PRIMARY KEY (ID)
-)
-
 CREATE TABLE CATEGORIAXBENEFICIO
 (
 	ID INT IDENTITY(1,1),
 	IdCategoria INT,
-	IdBeneficio INT,
+	Descripcion TEXT,
 	CONSTRAINT pk_categoriaxbeneficio
 		PRIMARY KEY (ID),
 	CONSTRAINT fk_categoriaxbeneficio_categoria
 		FOREIGN KEY (IdCategoria)
-		REFERENCES CATEGORIA(ID),
-	CONSTRAINT fk_categoriaxbeneficio_beneficio
-		FOREIGN KEY (IdBeneficio)
-		REFERENCES BENEFICIO(ID),
+		REFERENCES CATEGORIA(ID)
+)
+
+CREATE TABLE BENEFICIO
+(
+	ID INT IDENTITY(1,1),
+	Nombre VARCHAR(150),
+	IdCategoriaXBeneficio INT,
+	CONSTRAINT pk_beneficio
+		PRIMARY KEY (ID),
+	CONSTRAINT fk_beneficio_categoriaxbeneficio
+		FOREIGN KEY (IdCategoriaXBeneficio)
+		REFERENCES CATEGORIAXBENEFICIO(ID)
 )
 
 CREATE TABLE PRODUCTO
@@ -125,6 +125,7 @@ CREATE TABLE PRODUCTO
 	Descripcion TEXT,
 	Estado CHAR(1),
 	IdCategoria INT,
+	Multimedia TEXT,
 	IdUsuarioCrear INT,
 	FechaCrear DATETIME,
 	IdUsuarioModificar INT,
@@ -191,35 +192,10 @@ CREATE TABLE CARACTERISTICA
 	Nombre VARCHAR(150),
 	Descripcion TEXT,
 	Multimedia VARCHAR(MAX),
-	IdProducto INT,
+	IdCategoria INT,
 	CONSTRAINT pk_caracteristica
 		PRIMARY KEY (ID),
 	CONSTRAINT fk_caracteristica_producto
-		FOREIGN KEY (IdProducto)
-		REFERENCES PRODUCTO(ID)
-)
-
-CREATE TABLE RECOMENDACION
-(
-	ID INT IDENTITY(1,1),
-	Nombre VARCHAR(150),
-	Icono TEXT,
-	Descripcion TEXT,
-	CONSTRAINT pk_recomendacion
-		PRIMARY KEY (ID)
-)
-
-CREATE TABLE PRODUCTOXRECOMENDACION
-(
-	ID INT IDENTITY(1,1),
-	IdProducto INT,
-	IdRecomendacion INT,
-	CONSTRAINT pk_productoxrecomendacion
-		PRIMARY KEY (ID),
-	CONSTRAINT fk_productoxrecomendacion_producto
-		FOREIGN KEY (IdProducto)
-		REFERENCES PRODUCTO(ID),
-	CONSTRAINT fk_productoxrecomendacion_recomendacion
-		FOREIGN KEY (IdRecomendacion)
-		REFERENCES RECOMENDACION(ID)
+		FOREIGN KEY (IdCategoria)
+		REFERENCES CATEGORIA(ID)
 )
