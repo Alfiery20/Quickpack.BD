@@ -75,6 +75,8 @@ CREATE TABLE TIPO_PRODUCTO
 (
 	ID INT IDENTITY(1,1),
 	Nombre VARCHAR(250),
+	Descripcion TEXT,
+	Multimedia VARCHAR(MAX),
 	Estado CHAR(1),
 	CONSTRAINT pk_tipo_producto
 		PRIMARY KEY (ID)
@@ -85,6 +87,7 @@ CREATE TABLE CATEGORIA
 	ID INT IDENTITY(1,1),
 	Nombre VARCHAR(250),
 	Descripcion TEXT,
+	Multimedia VARCHAR(MAX),
 	IdTipoProducto INT,
 	Estado CHAR(1),
 	CONSTRAINT pk_categoria
@@ -125,7 +128,7 @@ CREATE TABLE PRODUCTO
 	Descripcion TEXT,
 	Estado CHAR(1),
 	IdCategoria INT,
-	Multimedia TEXT,
+	Multimedia VARCHAR(MAX),
 	IdUsuarioCrear INT,
 	FechaCrear DATETIME,
 	IdUsuarioModificar INT,

@@ -24,6 +24,7 @@ BEGIN
 	SELECT
 		TIP_PRO.Id AS [ID],
 		TIP_PRO.Nombre AS [NOMBRE],
+		TIP_PRO.Descripcion AS [DESCRIPCION],
 		(
 			CASE TIP_PRO.Estado 
 				WHEN 'A' THEN 'ACTIVO'

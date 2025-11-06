@@ -9,6 +9,8 @@ GO
 CREATE PROCEDURE usp_RegistrarTipoProducto
 (
 	@pnombre VARCHAR(250),
+	@pdescripcion TEXT,
+	@pmultimedia TEXT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -27,8 +29,8 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					INSERT INTO TIPO_PRODUCTO(Nombre, Estado)
-					VALUES(@pnombre, 'A')
+					INSERT INTO TIPO_PRODUCTO(Nombre, Descripcion, Multimedia, Estado)
+					VALUES(@pnombre, @pdescripcion, @pmultimedia, 'A')
 					SET @codigo = 'OK';
 					SET @msj = 'Se registró el tipo de producto de forma satisfactoria.';
 				END

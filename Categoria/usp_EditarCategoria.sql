@@ -11,6 +11,7 @@ CREATE PROCEDURE usp_EditarCategoria
 	@pidCategoria INT,
 	@pnombre VARCHAR(250),
 	@pdescripcion TEXT,
+	@pmultimedia TEXT,
 	@pidTipoProducto INT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
@@ -30,9 +31,13 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					UPDATE CATEGORIA 
-						SET Nombre = @pnombre, Descripcion = @pdescripcion, IdTipoProducto = @pidTipoProducto
+					UPDATE CATEGORIA SET 
+						Nombre = @pnombre, 
+						Descripcion = @pdescripcion, 
+						IdTipoProducto = @pidTipoProducto,
+						Multimedia = @pmultimedia
 					WHERE ID = @pidCategoria
+
 					SET @codigo = 'OK';
 					SET @msj = 'Se edito la Categoria de forma satisfactoria.';
 				END

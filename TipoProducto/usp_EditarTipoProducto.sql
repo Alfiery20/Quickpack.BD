@@ -10,6 +10,8 @@ CREATE PROCEDURE usp_EditarTipoProducto
 (
 	@pidTipoProducto INT,
 	@pnombre VARCHAR(250),
+	@pdescripcion TEXT,
+	@pmultimedia TEXT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -28,7 +30,12 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					UPDATE TIPO_PRODUCTO SET Nombre = @pnombre WHERE ID = @pidTipoProducto
+					UPDATE TIPO_PRODUCTO SET 
+						Nombre = @pnombre,
+						Descripcion = @pdescripcion,
+						Multimedia = @pmultimedia
+					WHERE ID = @pidTipoProducto
+
 					SET @codigo = 'OK';
 					SET @msj = 'Se edito el Tipo de Producto de forma satisfactoria.';
 				END

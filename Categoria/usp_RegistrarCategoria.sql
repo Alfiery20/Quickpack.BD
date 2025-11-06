@@ -11,6 +11,7 @@ CREATE PROCEDURE usp_RegistrarCategoria
 	@pnombre VARCHAR(250),
 	@pdescripcion TEXT,
 	@pidTipoProducto INT,
+	@pmultimedia TEXT,
 	@codigo VARCHAR(10) OUTPUT,
 	@msj VARCHAR(500) OUTPUT
 )
@@ -29,8 +30,8 @@ BEGIN
 				END
 			ELSE
 				BEGIN
-					INSERT INTO CATEGORIA(Nombre, Descripcion, Estado, IdTipoProducto)
-					VALUES(@pnombre, @pdescripcion ,'A', @pidTipoProducto)
+					INSERT INTO CATEGORIA(Nombre, Descripcion, Multimedia, Estado, IdTipoProducto)
+					VALUES(@pnombre, @pdescripcion, @pmultimedia, 'A', @pidTipoProducto)
 					SET @codigo = 'OK';
 					SET @msj = 'Se registró la Categoria de forma satisfactoria.';
 				END
