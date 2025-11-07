@@ -17,8 +17,13 @@ BEGIN
 		PROD.ID AS [ID],
 		PROD.Nombre AS [NOMBRE],
 		PROD.Descripcion AS [DESCRIPCION],
-		PROD.Multimedia AS [MULTIMEDIA]
+		PROD.Multimedia AS [MULTIMEDIA],
+		PRE.Monto AS [PRECIO]
 	FROM PRODUCTO PROD
-	WHERE PROD.IdCategoria = @pIdCategoria AND PROD.Estado = 'A'
+	INNER JOIN PRECIO PRE ON PRE.IdProducto = PROD.ID
+	WHERE 
+		PROD.IdCategoria = @pIdCategoria AND 
+		PROD.Estado = 'A' AND
+		PRE.Activo = 1
 
 END
